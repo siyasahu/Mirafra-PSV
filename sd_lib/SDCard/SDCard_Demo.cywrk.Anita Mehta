@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CyXmlSerializer>
+<!--This file is machine generated and read. It is not intended to be edited by hand.-->
+<!--Due to this, there is no schema for this file.-->
+<CyGuid_843a90a4-0c4b-4e44-991d-05e7fb117a21 type_name="CyDesigner.Common.ProjMgmt.Model.CyPrjMgmtWrkspcCustomData" version="4">
+<CyGuid_fdba8dfd-b15b-4469-9bbb-9e40c3e70997 type_name="CyDesigner.Common.Base.CyCustomData" version="2">
+<userData>
+<dataGuid v="1b906a0f-a7b6-4e4d-a428-82f98b53cb35">
+<CyGuid_1b906a0f-a7b6-4e4d-a428-82f98b53cb35 type_name="CyDesigner.Common.ProjMgmt.GUI.CyExplorerWindow+CyExplorerWindowState" version="3" SelectedTab="Source">
+<TreeKeys>
+<v>Source</v>
+<v>Components</v>
+<v>Output</v>
+</TreeKeys>
+<TreeStates>
+<CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="SDCard_Demo">
+<ExpandedNodeIds>
+<v>SDCard_Demo</v>
+<v>SDCard_Demo\RAW SD card</v>
+<v>SDCard_Demo\RAW SD card\TopDesign</v>
+<v>SDCard_Demo\RAW SD card\RAW SD card.cydwr</v>
+<v>SDCard_Demo\RAW SD card\Header Files</v>
+<v>SDCard_Demo\RAW SD card\Header Files\sd_spi.h</v>
+<v>SDCard_Demo\RAW SD card\Source Files</v>
+<v>SDCard_Demo\RAW SD card\Source Files\main.c</v>
+<v>SDCard_Demo\RAW SD card\Source Files\sd_spi.c</v>
+</ExpandedNodeIds>
+<VisibleNodeIds>
+<v>SDCard_Demo</v>
+<v>SDCard_Demo\RAW SD card</v>
+<v>SDCard_Demo\RAW SD card\TopDesign</v>
+<v>SDCard_Demo\RAW SD card\RAW SD card.cydwr</v>
+<v>SDCard_Demo\RAW SD card\Header Files</v>
+<v>SDCard_Demo\RAW SD card\Header Files\sd_spi.h</v>
+<v>SDCard_Demo\RAW SD card\Source Files</v>
+<v>SDCard_Demo\RAW SD card\Source Files\main.c</v>
+<v>SDCard_Demo\RAW SD card\Source Files\sd_spi.c</v>
+</VisibleNodeIds>
+</CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237>
+<CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="">
+<ExpandedNodeIds>
+<v>SDCard_Demo</v>
+<v>SDCard_Demo\RAW SD card</v>
+<v>SDCard_Demo\RAW SD card\TopDesign</v>
+<v>SDCard_Demo\RAW SD card\TopDesign\TopDesign.cysch</v>
+</ExpandedNodeIds>
+<VisibleNodeIds>
+<v>SDCard_Demo</v>
+<v>SDCard_Demo\RAW SD card</v>
+<v>SDCard_Demo\RAW SD card\TopDesign</v>
+<v>SDCard_Demo\RAW SD card\TopDesign\TopDesign.cysch</v>
+</VisibleNodeIds>
+</CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237>
+<CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="">
+<ExpandedNodeIds>
+<v>SDCard_Demo</v>
+<v>SDCard_Demo\RAW SD card</v>
+<v>SDCard_Demo\RAW SD card\CortexM0</v>
+<v>SDCard_Demo\RAW SD card\CortexM0\ARM_GCC_484</v>
+<v>SDCard_Demo\RAW SD card\CortexM0\ARM_GCC_484\Debug</v>
+<v>SDCard_Demo\RAW SD card\CortexM0\ARM_GCC_484\Debug\Listing Files</v>
+<v>SDCard_Demo\RAW SD card\CortexM0\ARM_GCC_484\Debug\Listing Files\main.lst</v>
+<v>SDCard_Demo\RAW SD card\CortexM0\ARM_GCC_484\Debug\Listing Files\sd_spi.lst</v>
+<v>SDCard_Demo\RAW SD card\CortexM0\ARM_GCC_484\Debug\RAW SD card.elf</v>
+<v>SDCard_Demo\RAW SD card\CortexM0\ARM_GCC_484\Debug\RAW SD card.hex</v>
+<v>SDCard_Demo\RAW SD card\CortexM0\ARM_GCC_484\Debug\RAW SD card.map</v>
+<v>SDCard_Demo\RAW SD card\RAW SD card.rpt</v>
+<v>SDCard_Demo\RAW SD card\RAW SD card_timing.html</v>
+</ExpandedNodeIds>
+<VisibleNodeIds>
+<v>SDCard_Demo</v>
+<v>SDCard_Demo\RAW SD card</v>
+<v>SDCard_Demo\RAW SD card\CortexM0</v>
+<v>SDCard_Demo\RAW SD card\CortexM0\ARM_GCC_484</v>
+<v>SDCard_Demo\RAW SD card\CortexM0\ARM_GCC_484\Debug</v>
+<v>SDCard_Demo\RAW SD card\CortexM0\ARM_GCC_484\Debug\Listing Files</v>
+<v>SDCard_Demo\RAW SD card\CortexM0\ARM_GCC_484\Debug\Listing Files\main.lst</v>
+<v>SDCard_Demo\RAW SD card\CortexM0\ARM_GCC_484\Debug\Listing Files\sd_spi.lst</v>
+<v>SDCard_Demo\RAW SD card\CortexM0\ARM_GCC_484\Debug\RAW SD card.elf</v>
+<v>SDCard_Demo\RAW SD card\CortexM0\ARM_GCC_484\Debug\RAW SD card.hex</v>
+<v>SDCard_Demo\RAW SD card\CortexM0\ARM_GCC_484\Debug\RAW SD card.map</v>
+<v>SDCard_Demo\RAW SD card\RAW SD card.rpt</v>
+<v>SDCard_Demo\RAW SD card\RAW SD card_timing.html</v>
+</VisibleNodeIds>
+</CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237>
+</TreeStates>
+<TreeKeysV2>
+<v>Datasheet</v>
+</TreeKeysV2>
+<TreeStatesV2>
+<CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="">
+<ExpandedNodeIds>
+<v>SDCard_Demo</v>
+<v>SDCard_Demo\RAW SD card</v>
+<v>SDCard_Demo\RAW SD card\PSoC 4 Architecture TRM</v>
+<v>SDCard_Demo\RAW SD card\PSoC 4200 Family Datasheet</v>
+<v>SDCard_Demo\RAW SD card\System Reference Guide v4_20</v>
+<v>SDCard_Demo\RAW SD card\cy_clock_v2_20</v>
+<v>SDCard_Demo\RAW SD card\cy_constant_v1_0</v>
+<v>SDCard_Demo\RAW SD card\cy_pins_v2_10</v>
+<v>SDCard_Demo\RAW SD card\SPI_Master_v2_50</v>
+</ExpandedNodeIds>
+<VisibleNodeIds>
+<v>SDCard_Demo</v>
+<v>SDCard_Demo\RAW SD card</v>
+<v>SDCard_Demo\RAW SD card\PSoC 4 Architecture TRM</v>
+<v>SDCard_Demo\RAW SD card\PSoC 4200 Family Datasheet</v>
+<v>SDCard_Demo\RAW SD card\System Reference Guide v4_20</v>
+<v>SDCard_Demo\RAW SD card\cy_clock_v2_20</v>
+<v>SDCard_Demo\RAW SD card\cy_constant_v1_0</v>
+<v>SDCard_Demo\RAW SD card\cy_pins_v2_10</v>
+<v>SDCard_Demo\RAW SD card\SPI_Master_v2_50</v>
+</VisibleNodeIds>
+</CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237>
+</TreeStatesV2>
+</CyGuid_1b906a0f-a7b6-4e4d-a428-82f98b53cb35>
+</dataGuid>
+</userData>
+</CyGuid_fdba8dfd-b15b-4469-9bbb-9e40c3e70997>
+<Unloaded />
+<OpenDocs />
+<config v="" />
+<AutoUpdate v="true" />
+</CyGuid_843a90a4-0c4b-4e44-991d-05e7fb117a21>
+</CyXmlSerializer>

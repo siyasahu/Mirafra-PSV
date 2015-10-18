@@ -14,13 +14,13 @@
 char send[6]; 
 char resp[20];
 
-char sdSpiByte(char data){
+//Private functions.
+static char sdSpiByte(char data){
      SPIM_WriteTxData(data);
      //while(!(ssp1stat & (1<<BF)));
      return SPIM_ReadRxData();
 } 
-
-inline uint8 sdReadResp(char * buffer, int length){ 
+static uint8 sdReadResp(char * buffer, int length){ 
     char v;
 	int i = 0; 
 	int j = 0;
@@ -40,8 +40,7 @@ inline uint8 sdReadResp(char * buffer, int length){
      
 	return i;
 }
-
-inline void sdReadResp_nBytes(char * buff, uint32 nBytes){ 
+static void sdReadResp_nBytes(char * buff, uint32 nBytes){ 
     char v;
 	int i = 0;
 	int j = 0;
@@ -50,34 +49,32 @@ inline void sdReadResp_nBytes(char * buff, uint32 nBytes){
           v = sdSpiByte(0xFF); 
     } while(v != 0xFE);
 	
-    do {                 
+    while(i < nBytes) {                 
           buff[i++] = v = sdSpiByte(0xFF); 
+    } 
+}
+
+static void sdWrite_Sector(char * buff, uint32 nBytes){ 
+    char v;
+	int i = 0;
+	int j = 0;
+	
+	v = sdSpiByte(0xFE);
+	
+    do {                 
+          v = sdSpiByte(buff[i++]); 
     } while(i <= nBytes);
+	
+	//Closing the command.
+	sdSendCommand(0xFF, 0x0);
+	
+	do {
+		v = sdSpiByte(0xFF);
+	} while(v!=0xFF);
+	
 }
 
-void sdCommandAndResponse(char cmd, uint32 param){   
-     char ret;          
-     ret = sdSpiByte(0xFF); 
-     sdSendCommand(cmd, param); 
-     sdReadResp(resp, len(resp));     
-     return;
-}
-
-inline void  sdSendCommand(char cmd, uint32 param){      
-     
-     send[0] = cmd | 0x40; 
-     send[1] = param >> 24; 
-     send[2] = param >> 16; 
-     send[3] = param >> 8; 
-     send[4] = param; 
-     send[5] = (sdCrc7(send, 5, 0) << 1) | 1; 
-      
-     for(cmd = 0; cmd < sizeof(send); cmd++){ 
-          send[cmd] = sdSpiByte(send[cmd]); 
-     } 
-} 
-
-char sdCrc7(char* chr,char cnt,char crc){ 
+static char sdCrc7(char* chr,char cnt,char crc){ 
      char i, a; 
      char Data; 
 
@@ -91,8 +88,29 @@ char sdCrc7(char* chr,char cnt,char crc){
      }      
      return crc & 0x7F; 
 } 
+static void sdSendCommand(char cmd, uint32 param){      
+     
+     send[0] = cmd | 0x40; 
+     send[1] = param >> 24; 
+     send[2] = param >> 16; 
+     send[3] = param >> 8; 
+     send[4] = param; 
+     send[5] = (sdCrc7(send, 5, 0) << 1) | 1; 
+      
+     for(cmd = 0; cmd < sizeof(send); cmd++){ 
+          send[cmd] = sdSpiByte(send[cmd]); 
+     } 
+} 
+static void sdCommandAndResponse(char cmd, uint32 param){   
+     char ret;          
+     ret = sdSpiByte(0xFF); 
+     sdSendCommand(cmd, param); 
+     sdReadResp(resp, len(resp));     
+     return;
+}
 
-char SD_init() {
+//Global functions.
+int SD_init() {
     char i = 0;
 	int res = -1;
        
@@ -111,19 +129,20 @@ char SD_init() {
 		res--;
 	} while((i != 1) & (res != 0));
 	
+	if(res == 0)
+		return -1;	//Failure.
+	
+	
 	res = 1000;
 	do {
 		sdSendCommand(0x1, 0x0);
 		i = sdSpiByte(0xff);
 		res--;
 	} while((i != 0) & (res != 0));
-
-/*
-	if(resp[0] != 1) {
-		//Error while initilizing SD card.
-		return -1;
-	}
-*/	
+	
+	if(res == 0)
+		return -1;	//Failure.
+	
 	// Optional: CMD8 - Just validating the legal command for card type.
 	sdCommandAndResponse(8, 0x000001AA);
 	
@@ -133,7 +152,6 @@ char SD_init() {
     	sdCommandAndResponse(41, 0x0);
 	} while(resp[0] != 0);
 
-#if 0
 	// Optional: CMD_58 - Check voltage compatiblity.
  	sdCommandAndResponse(58, 0);
 	
@@ -143,15 +161,20 @@ char SD_init() {
 	// Optional: CMD_10 - Read CID.
 	sdCommandAndResponse(10, 0);
 	sdReadResp_nBytes(resp, 20);
-#endif
-
-    return 0;
+	
+	//Success.
+	return 0;
 }
-
-uint32 VVDRV_sdcc_dataRead(void * Read_buffer, uint32 length ,uint32  sec_num) {
+uint32 SD_Sector_Read(void * Read_buffer ,uint32  sec_num) {
 	// CMD_17 - Dump the sector.
 	sdCommandAndResponse(17, sec_num << 9);
-	sdReadResp_nBytes(Read_buffer, length);    
+	sdReadResp_nBytes(Read_buffer, 512);    
+}
+
+uint32 SD_Sector_Write(void * Write_buffer ,uint32  sec_num) {
+	//CMD_24 - Write single sector
+	sdCommandAndResponse(24, sec_num << 9);
+	sdWrite_Sector(Write_buffer, 512);
 }
 
 /* [] END OF FILE */

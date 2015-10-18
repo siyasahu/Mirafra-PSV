@@ -13,91 +13,50 @@
 #include "sd_spi.h"
 #include "assert.h"
 
-extern char resp[0x210];
-
-#if 0
-void SD_command(unsigned char cmd, unsigned long arg, unsigned char crc, unsigned char read) {
-	unsigned char i, buffer[8];
-		
-	//CS_ENABLE();
-	SPIM_WriteTxData(cmd);
-	SPIM_WriteTxData(arg>>24);
-	SPIM_WriteTxData(arg>>16);
-	SPIM_WriteTxData(arg>>8);
-	SPIM_WriteTxData(arg);
-	SPIM_WriteTxData(crc);
-		
-	for(i=0; i<read; i++)
-		SPIM_WriteTxData(0xFF);
-		buffer[i] = SPIM_ReadRxData();
-		
-	//CS_DISABLE();
-	return 
-}
-
-char SD_command(unsigned char cmd, unsigned long arg, unsigned char crc) {	
-	unsigned char retry, res;
-	int i;
-	uint64 com_res;
+char Read_buffer_1[0x200], padding[20],  Read_buffer_2[0x200];
 	
-	 
-	SPIM_SpiUartWriteTxData(cmd | 0x40);	//SD Spec: 1st bit always zero, 2nd always 1
-	SPIM_SpiUartWriteTxData(arg>>24);	//first of the 4 bytes address
-	SPIM_SpiUartWriteTxData(arg>>16);	//second
-	SPIM_SpiUartWriteTxData(arg>>8);	//third
-	SPIM_SpiUartWriteTxData(arg);	//fourth
-	SPIM_SpiUartWriteTxData(crc);	//CRC and last bit 1
-	
-	for(i = 0; i < 20 ; i++) {
-		SPIM_SpiUartWriteTxData(0xff);
-		//res = SPIM_SpiUartReadRxData();
-	}
-		
-	retry = 0;
-	com_res = 0;
-	res = 0;
-	do {
-		com_res <<=8;
-		com_res |= res;
-		
-		SPIM_SpiUartWriteTxData(0xff);
-		res = SPIM_SpiUartReadRxData();
-		
-		if(retry++ > 100) {
-			break;  	//overtime exit.
-		}
-	} while(res != 0xFF);
-	
-	return com_res;
-}
-#endif
-
-int main()
-{
-	char i;
-	char * Read_buffer;
+void sys_init() {
 	int status = 0;
-	
-	CyGlobalIntEnable;
-	
-	Read_buffer = malloc(0x200);
-	
-	assert(Read_buffer);
-	
-	Clock_1_SetDivider(39);
+	//Set SD card clock to 10 MHz.
+	Clock_1_SetDivider(39);			//Source clock 400KHz. Divider setting 39 (+ 1)
 	
     /* Place your initialization/startup code here (e.g. MyInst_Start()) */
 	SPIM_Start();
+	status = SD_init();
 	
-	SD_init();
+	//Not able to init SD card.
+	assert(status == 0);
+	
+	//Boost the SD card clocks to 100 MHz.
+	Clock_1_SetDivider(3);			//Source clock 400KHz. Divider setting 3 (+ 1).
+}
 
-	Clock_1_SetDivider(3);
+int main()
+{
+	int i =0;
+	volatile int j = 0, pass = 0, fail = 0;
+	
+	//Global interrupt enable.
+	CyGlobalIntEnable;
+	
+	sys_init();
+	
+	//initiate data pattern.
+	for (j =0; j < 0x200; j++) {
+		Read_buffer_1[j] = (char)j;
+	}
 	
 	//MountDisk();
+	for (j =0; j < 100; j++) {
+		SD_Sector_Write(Read_buffer_1, j);
+		SD_Sector_Read(Read_buffer_2, j);
+		
+		if (0 == memcmp(Read_buffer_1, Read_buffer_2, 0x200))
+			pass++;
+		else 
+			fail++;
+	}
 	
-	VVDRV_sdcc_dataRead(Read_buffer, 0x200 , 0);
-	
-    /* CyGlobalIntEnable; */ /* Uncomment this line to enable global interrupts. */
     for(;;)
     {
         /* Place your application code here. */
